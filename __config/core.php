@@ -35,9 +35,11 @@ class WatchDog extends DBconnect
 		$save_coin_rates_query = mysqli_query($this->plug, $save_coin_rates);
 		if(!$save_coin_rates_query){
 			echo 'Error running save_coin_rates_query '.mysqli_error($this->plug);
-		}else{
-			echo "New rate found changes has been added ";
 		}
+	}
+
+	public function loadLastUpdated(){
+
 	}
 }
 

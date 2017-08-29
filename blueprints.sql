@@ -5,3 +5,7 @@ create table watchdog(
     status varchar(255) not null,
     date varchar(255) not null
 );
+
+create table statistic(
+	
+);

@@ -18,6 +18,16 @@ $pairs = "BTC_XMR";
 
 $trade_history = $load_trade->get_trade_history($pairs);
 $total_trade = count($trade_history);
+
+$coin_type = $pairs;
+$coin_rate = $trade_history[4]["rate"];
+$coin_status = $trade_history[3]["type"];
+$coin_date = $trade_history[2]["date"];
+
+# save trade pair for XMR
+$save_trade = new WatchDog($coin_type, $coin_rate, $coin_status, $coin_date);
+$save_trade->saveUpdates();
+
 ?>
 
 <div class="container">
@@ -52,15 +62,6 @@ $total_trade = count($trade_history);
 									echo '<td>'.$new_trade_history["total"].'</td>';
 									echo '</tr>';
 								}
-
-								$coin_type = $pairs;
-								$coin_rate = $trade_history[4]["rate"];
-								$coin_status = $trade_history[3]["type"];
-								$coin_date = $trade_history[2]["date"];
-
-								# save trade pair for XMR
-								$save_trade = new WatchDog($coin_type, $coin_rate, $coin_status, $coin_date);
-								$save_trade->saveUpdates();
 							?>
 					</table>
 				</div>
@@ -75,18 +76,23 @@ $total_trade = count($trade_history);
 		<div class="col-md-6">
 			<div class="thumbnail">
 				<div class="panel-body">
-					Open Trade
+					Market Watch List
 					<hr />
-					<?php //echo $load_trade->get_open_orders($pairs); ?>
-				</div>
-			</div>
-		</div>
+					<table class="table">
+						<tr>
+							<th>Global Trade ID</th>
+							<th>Trade Id</th>
+							<th>Date</th>
+							<th>Type</th>
+							<th>Rate</th>
+							<th>Amount</th>
+							<th>Total</th>
+						</tr>
 
-		<div class="col-md-6">
-			<div class="thumbnail">
-				<div class="panel-body">
-					Your Trade Balance is:
-					<hr />
+						<tr>
+							
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
