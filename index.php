@@ -45,7 +45,7 @@
 			// load students
 			$("#load-all").load("__factory/load-poloniex.php");
 		};
-		window.setInterval(refreshFeeds, 9000);
+		window.setInterval(refreshFeeds, 2000);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>
