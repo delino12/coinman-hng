@@ -1,6 +1,7 @@
 <?php
 # invoke Api 
 require ("../__config/p_api.php");
+require ("../__config/core.php");
 
 $api_key = "52P8WQDT-UNTGQINY-A7RUEC8A-PJ7RQCKL"; // Api Keys here
 $api_secret = "1d63d60d45b510553c0bc7dd2aa4128e8b36c44d23a47459e03ef077bb5c1d25a098e1139434c7ceb97ed3ab7673164a6f12a67432d5062be08992b5c04e358e"; // Api Secret here
@@ -17,7 +18,6 @@ $pairs = "BTC_XMR";
 
 $trade_history = $load_trade->get_trade_history($pairs);
 $total_trade = count($trade_history);
-
 ?>
 
 <div class="container">
@@ -35,7 +35,6 @@ $total_trade = count($trade_history);
 							<th>Date</th>
 							<th>Type</th>
 							<th>Rate</th>
-							<th>Watch</th>
 							<th>Amount</th>
 							<th>Total</th>
 						</tr>
@@ -49,13 +48,20 @@ $total_trade = count($trade_history);
 									echo '<td>'.$new_trade_history["date"].'</td>';
 									echo '<td>'.$new_trade_history["type"].'</td>';
 									echo '<td>'.$new_trade_history["rate"].'</td>';
-									echo '<td>'.$new_trade_history["rate"].'</td>';
 									echo '<td>'.$new_trade_history["amount"].'</td>';
 									echo '<td>'.$new_trade_history["total"].'</td>';
 									echo '</tr>';
 								}
+
+								$coin_type = $pairs;
+								$coin_rate = $trade_history[4]["rate"];
+								$coin_status = $trade_history[3]["type"];
+								$coin_date = $trade_history[2]["date"];
+
+								# save trade pair for XMR
+								$save_trade = new WatchDog($coin_type, $coin_rate, $coin_status, $coin_date);
+								$save_trade->saveUpdates();
 							?>
-						
 					</table>
 				</div>
 			</div>
