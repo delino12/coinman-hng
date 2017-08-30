@@ -17,12 +17,7 @@ $total_ticker = count($load_ticker);
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<?php
-				foreach ($load_ticker as $key => $value) {
-					# code...
-					echo $key.' <br /> ';
-				}
-			?>
+			
 		</div>
 	</div>
 </div>
@@ -46,21 +41,24 @@ $total_ticker = count($load_ticker);
 						<th>High 24hr</th>
 						<th>Low 24hr</th>
 					</tr>
-					<tr>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					</tr>
+					<?php
 
-
+						foreach ($load_ticker as $key => $arrays) {	
+							echo '<tr>';
+							echo '<td>'.$key.'</td>';
+							echo '<td>'.$arrays['id'].'</td>';
+							echo '<td>'.$arrays['last'].'</td>';
+							echo '<td>'.$arrays['lowestAsk'].'</td>';
+							echo '<td>'.$arrays['highestBid'].'</td>';
+							echo '<td>'.$arrays['percentChange'].'</td>';
+							echo '<td>'.$arrays['baseVolume'].'</td>';
+							echo '<td>'.$arrays['quoteVolume'].'</td>';
+							echo '<td>'.$arrays['isFrozen'].'</td>';
+							echo '<td>'.$arrays['high24hr'].'</td>';
+							echo '<td>'.$arrays['low24hr'].'</td>';
+							echo '</tr>';
+						}
+					?>
 				</table>
 			</div>
 		</div>
