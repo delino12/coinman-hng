@@ -29,9 +29,6 @@ $coin_date = $trade_history[2]["date"];
 $save_trade = new WatchDog($coin_type, $coin_rate, $coin_status, $coin_date);
 $save_trade->saveUpdates();
 
-# refresh data
-$save_trade->refreshData();
-
 # load last updates
 $last_updates = $save_trade->loadLastUpdated();
 
@@ -39,47 +36,43 @@ $last_updates = $save_trade->loadLastUpdated();
 $total_buy_request = $save_trade->getBuyersTotal();
 $total_sell_request = $save_trade->getSellersTotal()
 
-
-
-
-
-
-
 ?>
 <div class="container">
 	<div class="row">
 		<div class="col-md-8">
-			<div class="panel-body">
-				Market Watch List
-				<hr />
-				<table class="table">
-					<tr>
-						<th>Stack Pair</th>
-						<th>Rate </th>
-						<th>Rate gap</th>
-						<th>% Change</th>
-						<th>Transaction</th>
-						<th>Status</th>
-						<th>No. Buy</th>
-						<th>No. Sell</th>
-					</tr>
+			<div class="thumbnail">
+				<div class="panel-body">
+					Market Watch List 3hr ago
+					<hr />
+					<table class="table">
+						<tr>
+							<th>Stack Pair</th>
+							<th>Rate </th>
+							<th>Rate gap</th>
+							<th>% Change</th>
+							<th>Type</th>
+							<th>Status</th>
+							<th>No. Buy</th>
+							<th>No. Sell</th>
+						</tr>
 
-					<?php
-						//$rate_gap = $last_updates['rate'] - ;
-						//$stat = calStat($last_updates['rate'], $trade_history[4]["rate"]);
+						<?php
+							$rate_gap = calDiffer($last_updates['rate'], $trade_history[4]["rate"]);
+							$stat = calStat($last_updates['rate'], $trade_history[4]["rate"]);
 
-						echo '<tr>';
-						echo '<td>'.$pairs.'</td>';
-						echo '<td>'.$last_updates['rate'].'</td>';
-						echo '<td>'.$rate_gap.'</td>';
-						echo '<td>none</td>';
-						echo '<td>'.$last_updates['status'].'</td>';
-						echo '<td>---</td>';
-						echo '<td>'.$total_buy_request.'</td>';
-						echo '<td>'.$total_sell_request.'</td>';
-						echo '</tr>';
-					?>
-				</table>
+							echo '<tr>';
+							echo '<td>'.$pairs.'</td>';
+							echo '<td>'.$last_updates['rate'].'</td>';
+							echo '<td>'.$rate_gap.'</td>';
+							echo '<td>none</td>';
+							echo '<td>'.$last_updates['status'].'</td>';
+							echo '<td>---</td>';
+							echo '<td>'.$total_buy_request.'</td>';
+							echo '<td>'.$total_sell_request.'</td>';
+							echo '</tr>';
+						?>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

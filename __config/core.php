@@ -12,6 +12,9 @@ class WatchDog extends DBconnect
 
 	protected $plug;
 
+	protected $expires;
+	protected $timer;
+
 	function __construct($coin_type, $coin_rate, $coin_status, $coin_date)
 	{
 		# code...
@@ -19,6 +22,11 @@ class WatchDog extends DBconnect
 		$this->coin_rate = $coin_rate;
 		$this->coin_date = $coin_date;
 		$this->coin_status = $coin_status;
+
+		# timer
+		# 30mins duration
+		$this->expires = 60 * 24 + time();
+		$this->timer = time();
 
 		parent::__construct();
 		$this->plug = DBconnect::iConnect();
@@ -29,9 +37,10 @@ class WatchDog extends DBconnect
 		# check first for differences..
 
 		# save to watch dog
-		$save_coin_rates = " INSERT INTO watchdog (type, rate, status, date) ";
+		$save_coin_rates = " INSERT INTO watchdog (type, rate, status, date, time, expire) ";
 		$save_coin_rates .= " VALUES('".$this->coin_type."', '".$this->coin_rate."', ";
-		$save_coin_rates .= " '".$this->coin_status."', '".$this->coin_date."') ";
+		$save_coin_rates .= " '".$this->coin_status."', '".$this->coin_date."', ";
+		$save_coin_rates .= " '".$this->timer."', '".$this->expires."') ";
 		$save_coin_rates_query = mysqli_query($this->plug, $save_coin_rates);
 		if(!$save_coin_rates_query){
 			echo 'Error running save_coin_rates_query '.mysqli_error($this->plug);
@@ -80,7 +89,52 @@ class WatchDog extends DBconnect
 			}
 		}
 	}
+
+	public function refreshData(){
+		$get_expire_time = " SELECT expire FROM watchdog ";
+		$get_expire_time_query = mysqli_query($this->plug, $get_expire_time);
+		if(!$get_expire_time_query){
+			echo 'Error running get_expire_time_query '.mysqli_error($this->plug);
+		}else{
+			while($results = mysqli_fetch_array($get_expire_time_query)){
+				
+				$time_expire = $results['expire'];
+
+				$resetData = " DELETE FROM watchdog WHERE (timer > '".$time_expire."') ";
+				$resetData_query = mysqli_query($this->plug, $resetData);
+				if(!$resetData_query){
+					echo 'Fail to run resetData_query '.mysqli_error($this->plug);
+				}
+			}
+		}
+	}
 }
 
+
+/**
+* 
+*/
+class Delete extends DBconnect
+{
+	
+	protected $plug;
+
+	function __construct()
+	{
+		# code...
+		parent::__construct();
+		$this->plug = DBconnect::iConnect();
+	}
+
+	public function resetTable()
+	{
+		# code...
+		$delete = " DELETE FROM watchdog ";
+		$delete_query = mysqli_query($this->plug, $delete);
+		if(!$delete_query){
+			echo "Error running delete query ".mysqli_error($this->plug);
+		}
+	}
+}
 
 ?>

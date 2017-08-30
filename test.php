@@ -15,12 +15,19 @@ function checkFloat($float1, $float2){
 }
 
 
-$a = 0.02869100;
-$b = 0.02869200;
+$a = 0.02869200;
+$b = 0.02869100;
 
-echo checkFloat($a, $b);
-echo '<br />';
-echo bcadd($a, $b);
+$c = $a - $b;
+$c = floatval($c);
+echo $c.'<br />';
+
+$epsilon = 0.00001;
+if(abs($a-$b) < $epsilon) {
+    echo "true";
+}else{
+	echo "false";
+}
 
 
 ?>
