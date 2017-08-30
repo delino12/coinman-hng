@@ -47,8 +47,20 @@ $total_ticker = count($load_ticker);
 						<th>Low 24hr</th>
 					</tr>
 					<tr>
-					<?php //var_dump($load_ticker);  ?>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
 					</tr>
+
+
 				</table>
 			</div>
 		</div>
