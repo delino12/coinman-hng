@@ -47,24 +47,18 @@ $total_ticker = count($load_ticker);
 						<th>Low 24hr</th>
 					</tr>
 
-					<?php
+					<?php foreach ($load_ticker as $key => $value):  ?>
+						<tr>
+						<?php foreach ($value as $detail):  ?>
 
-					//foreach ($load_ticker as $single_ticker) {
-						
-						echo '<tr>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '<td></td>';
-						echo '</tr>';
 
-					//}
-						
-					?>
+							<td><?php echo $detail; ?></td>
+							
+							<?php endforeach; ?>
+						</tr>
+
+
+					<?php endforeach; ?>
 				</table>
 			</div>
 		</div>
