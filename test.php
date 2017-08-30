@@ -1,33 +1,35 @@
 <?php
+$json = '{
+	"BTC_BCN":{
+		"id":7,
+		"last":"0.00000044",
+		"lowestAsk":"0.00000044",
+		"highestBid":"0.00000043",
+		"percentChange":"0.07317073",
+		"baseVolume":"580.83307607",
+		"quoteVolume":"1386986827.64585733",
+		"isFrozen":"0",
+		"high24hr":"0.00000047",
+		"low24hr":"0.00000037"
+	}
+}';
 
 
-function checkFloat($float1, $float2){
-	// Check numbers to 5 digits of precision  
-    // $epsilon = 0.00001;  
-      
-    $float1 = (float)$float1;  
-    $float2 = (float)$float2; 
+$json_array = json_decode($json, TRUE);
 
-    $result = $float1 - $float2;
-
-    return $result;
-
+foreach ($json_array as $key => $arrays) {
+	
+	echo $key.' ==> ';
+	echo $arrays['id'];
+	echo $arrays['last'];
+	echo $arrays['lowestAsk'];
+	echo $arrays['highestBid'];
+	echo $arrays['percentChange'];
+	echo $arrays['baseVolume'];
+	echo $arrays['quoteVolume'];
+	echo $arrays['isFrozen'];
+	echo $arrays['high24hr'];
+	echo $arrays['low24hr'];
 }
-
-
-$a = 0.02869200;
-$b = 0.02869100;
-
-$c = $a - $b;
-$c = floatval($c);
-echo $c.'<br />';
-
-$epsilon = 0.00001;
-if(abs($a-$b) < $epsilon) {
-    echo "true";
-}else{
-	echo "false";
-}
-
 
 ?>
