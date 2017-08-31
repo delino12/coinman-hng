@@ -37,7 +37,7 @@
 
 	<div class="container">
 		<h2>HGN CoinMan Trade Strategy predict</h2>
-		<p>This strategy show transaction gap between each crypto-currencies, buy transaction rate, the sell transaction rate and trade activity details. </p>
+		<p>This strategy show transaction gap between each crypto-currencies, buy transaction rate, sell transaction rate and trade activity details. </p>
 
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#home">Current Updates </a></li>
