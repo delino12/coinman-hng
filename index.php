@@ -74,12 +74,8 @@
 		var refreshFeeds = function (){
 			// load students
 			$("#load-all").load("__factory/load-poloniex.php");
-			$("#load-all-1hr").load("__factory/load-poloniex-1hr.php");
-			$("#load-all-3hr").load("__factory/load-poloniex-3hr.php");
-			$("#load-all-24hr").load("__factory/load-poloniex-24hr.php");
-			//$("#trade-history").load("__factory/load-trade-history.php");
 		};
-		window.setInterval(refreshFeeds, 6000);
+		window.setInterval(refreshFeeds, 9000);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>

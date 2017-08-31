@@ -3,6 +3,59 @@ require ("db.php");
 /**
 * Processor
 */
+
+/**
+* 
+*/
+class CountTradeRequest extends DBconnect
+{
+	
+	protected $plug;
+
+	function __construct()
+	{
+		# timer
+		# 30 mins duration
+		# 3600 / 2 = 1600
+		$this->expires = 1800 + time();
+		$this->timer = time();
+
+		parent::__construct();
+		$this->plug = DBconnect::iConnect();
+	}
+
+	public function load_buy_count($pairs)
+	{
+		$count_buy_request = " SELECT COUNT(*) FROM watchdog WHERE(status = 'buy' ";
+		$count_buy_request.= " AND type = '".$pairs."' )";
+		$count_buy_request_query = mysqli_query($this->plug, $count_buy_request);
+		if(!$count_buy_request_query){
+			echo 'Error running count_buy_request_query '.mysqli_error($count_buy_request_query);
+		}else{
+			while ($result = mysqli_fetch_array($count_buy_request_query)) {
+				# code...
+				return $result['COUNT(*)'];
+			}
+		}
+	}
+
+
+	public function load_sell_count($pairs){
+		# code...
+		$count_sell_request = " SELECT COUNT(*) FROM watchdog WHERE(status = 'sell' ";
+		$count_sell_request .= " AND type = '".$pairs."' )";
+		$count_sell_request_query = mysqli_query($this->plug, $count_sell_request);
+		if(!$count_sell_request_query){
+			echo 'Error running count_sell_request_query '.mysqli_error($count_sell_request_query);
+		}else{
+			while ($result = mysqli_fetch_array($count_sell_request_query)) {
+				# code...
+				return $result['COUNT(*)'];
+			}
+		}
+	}
+}
+
 class WatchDog extends DBconnect
 {
 
@@ -35,6 +88,40 @@ class WatchDog extends DBconnect
 		$save_coin_rates_query = mysqli_query($this->plug, $save_coin_rates);
 		if(!$save_coin_rates_query){
 			echo 'Error running save_coin_rates_query '.mysqli_error($this->plug);
+		}
+	}
+
+	public function load_trade($pairs)
+	{
+		# code...
+		$load_trade_pairs = " SELECT * FROM watchdog  ";
+		$load_trade_pairs .= " WHERE(type = '".$pairs."') LIMIT 1 ";
+		$load_trade_pairs_query = mysqli_query($this->plug, $load_trade_pairs);
+		if(!$load_trade_pairs_query){
+			echo 'Error running loading all trade query '.mysqli_error($this->plug);
+		}else{
+			while ($results = mysqli_fetch_array($load_trade_pairs_query)) {
+
+				# count numbers of buy request
+				$get_count = new CountTradeRequest();
+				$total_buy = $get_count->load_buy_count($pairs);
+				$total_sell = $get_count->load_sell_count($pairs);
+
+				# code...
+				echo '
+					<tr>
+						<td>'.$results['type'].'</td>
+						<td>'.$results['rate'].'</td>
+						<td> --- </td>
+						<td> --- </td>
+						<td> --- </td>
+						<td>'.$results['status'].'</td>
+						<td>'.$total_buy.'</td>
+						<td>'.$total_sell.'</td>
+					</tr>
+				';
+				//return $msg;
+			}
 		}
 	}
 
@@ -82,7 +169,7 @@ class WatchDog extends DBconnect
 	}
 
 	public function refreshData(){
-		$get_expire_time = " SELECT expire FROM watchdog ";
+		$get_expire_time = " SELECT * FROM watchdog ";
 		$get_expire_time_query = mysqli_query($this->plug, $get_expire_time);
 		if(!$get_expire_time_query){
 			echo 'Error running get_expire_time_query '.mysqli_error($this->plug);
@@ -100,32 +187,4 @@ class WatchDog extends DBconnect
 		}
 	}
 }
-
-
-/**
-* 
-*/
-class Delete extends DBconnect
-{
-	
-	protected $plug;
-
-	function __construct()
-	{
-		# code...
-		parent::__construct();
-		$this->plug = DBconnect::iConnect();
-	}
-
-	public function resetTable()
-	{
-		# code...
-		$delete = " DELETE FROM watchdog ";
-		$delete_query = mysqli_query($this->plug, $delete);
-		if(!$delete_query){
-			echo "Error running delete query ".mysqli_error($this->plug);
-		}
-	}
-}
-
 ?>

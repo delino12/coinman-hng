@@ -42,9 +42,9 @@ $bcn_coin_status = $bcn_trade_history[3]["type"];
 $bcn_coin_date = $bcn_trade_history[2]["date"];
 
 # bela coin details
-$bella_coin_rate = $bela_trade_history[4]["rate"];
-$bella_coin_status = $bela_trade_history[3]["type"];
-$bella_coin_date = $bela_trade_history[2]["date"];
+$bela_coin_rate = $bela_trade_history[4]["rate"];
+$bela_coin_status = $bela_trade_history[3]["type"];
+$bela_coin_date = $bela_trade_history[2]["date"];
 
 # doge coin details
 $doge_coin_rate = $doge_trade_history[4]["rate"];
@@ -82,6 +82,11 @@ $save_xbc_trade_history = $save_trade->saveUpdates($BTC_XBC, $xbc_coin_rate, $xb
 //$save_xem_trade_history = $save_trade->saveUpdates();
 
 
+
+# load all trades
+$bcn_results = $save_trade->load_trade($BTC_BCN);
+$bela_results = $save_trade->load_trade($BTC_BELA);
+
 ?>
 
 
@@ -104,19 +109,8 @@ $save_xbc_trade_history = $save_trade->saveUpdates($BTC_XBC, $xbc_coin_rate, $xb
 					</tr>
 
 					<?php
-						//$rate_gap = $last_updates['rate'] - ;
-						//$stat = calStat($last_updates['rate'], $trade_history[4]["rate"]);
-
-						echo '<tr>';
-						echo '<td>'.$pairs.'</td>';
-						echo '<td>'.$last_updates['rate'].'</td>';
-						echo '<td>--</td>';
-						echo '<td>none</td>';
-						echo '<td>'.$last_updates['status'].'</td>';
-						echo '<td>---</td>';
-						echo '<td>'.$total_buy_request.'</td>';
-						echo '<td>'.$total_sell_request.'</td>';
-						echo '</tr>';
+						echo $bcn_results;
+						echo $bela_results;
 					?>
 				</table>
 			</div>
