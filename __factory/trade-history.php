@@ -21,7 +21,7 @@ if(isset($_GET['pair'])){
 }
 
 $trade_history = $load_trade->get_trade_history($pairs);
-//$total_trade = count($trade_history);
+$total_trade = count($trade_history);
 
 //$coin_type = $pairs;
 //$coin_rate = $trade_history[4]["rate"];
@@ -29,15 +29,15 @@ $trade_history = $load_trade->get_trade_history($pairs);
 //$coin_date = $trade_history[2]["date"];
 
 # save trade pair for XMR
-$save_trade = new WatchDog($coin_type, $coin_rate, $coin_status, $coin_date);
-$save_trade->saveUpdates();
+//$save_trade = new WatchDog($coin_type, $coin_rate, $coin_status, $coin_date);
+//$save_trade->saveUpdates();
 
 # load last updates
-$last_updates = $save_trade->loadLastUpdated();
+//$last_updates = $save_trade->loadLastUpdated();
 
 # total buyer for 
-$total_buy_request = $save_trade->getBuyersTotal();
-$total_sell_request = $save_trade->getSellersTotal()
+//$total_buy_request = $save_trade->getBuyersTotal();
+//$total_sell_request = $save_trade->getSellersTotal()
 
 ?>
 <div class="container">

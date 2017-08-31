@@ -5,41 +5,32 @@ require ("db.php");
 */
 class WatchDog extends DBconnect
 {
-	protected $coin_type;
-	protected $coin_rate;
-	protected $coin_date;
-	protected $coin_status;
 
 	protected $plug;
 
 	protected $expires;
 	protected $timer;
 
-	function __construct($coin_type, $coin_rate, $coin_status, $coin_date)
+	function __construct()
 	{
-		# code...
-		$this->coin_type = $coin_type;
-		$this->coin_rate = $coin_rate;
-		$this->coin_date = $coin_date;
-		$this->coin_status = $coin_status;
-
 		# timer
-		# 30mins duration
-		$this->expires = 60 * 24 + time();
+		# 30 mins duration
+		# 3600 / 2 = 1600
+		$this->expires = 1800 + time();
 		$this->timer = time();
 
 		parent::__construct();
 		$this->plug = DBconnect::iConnect();
 	}
 
-	public function saveUpdates(){
+	public function saveUpdates($pairs, $coin_rate, $coin_status, $coin_date){
 
 		# check first for differences..
 
 		# save to watch dog
 		$save_coin_rates = " INSERT INTO watchdog (type, rate, status, date, time, expire) ";
-		$save_coin_rates .= " VALUES('".$this->coin_type."', '".$this->coin_rate."', ";
-		$save_coin_rates .= " '".$this->coin_status."', '".$this->coin_date."', ";
+		$save_coin_rates .= " VALUES('".$pairs."', '".$coin_rate."', ";
+		$save_coin_rates .= " '".$coin_status."', '".$coin_date."', ";
 		$save_coin_rates .= " '".$this->timer."', '".$this->expires."') ";
 		$save_coin_rates_query = mysqli_query($this->plug, $save_coin_rates);
 		if(!$save_coin_rates_query){

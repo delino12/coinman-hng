@@ -1,3 +1,11 @@
+<?php
+if(isset($_GET['pair'])){
+
+	$pairs = $_GET['pair'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +44,7 @@
 	</nav>
 
 	<div class="container">
-		<h2>HGN CoinMan Trade Strategy predict</h2>
+		<h2>HGN CoinMan Trade Strategy predict for <b><?= $pairs; ?></b></h2>
 		<p>This strategy show transaction gap between each crypto-currencies, buy transaction rate, the sell transaction rate and trade activity details. </p>
 
 		<ul class="nav nav-tabs">
@@ -65,6 +73,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+				<input type="hidden" id="pairs" value="<?php echo $pairs; ?>" name="">
 				<div id="trade-history"></div>
 			</div>
 		</div>
@@ -73,13 +82,14 @@
 	<script type="text/javascript">		
 		var refreshFeeds = function (){
 			// load students
-			$("#load-all").load("__factory/load-poloniex.php");
-			$("#load-all-1hr").load("__factory/load-poloniex-1hr.php");
-			$("#load-all-3hr").load("__factory/load-poloniex-3hr.php");
-			$("#load-all-24hr").load("__factory/load-poloniex-24hr.php");
+			var pairs = $("#pairs").val();
+			$("#load-all").load("__factory/trade-history.php?pair="+pairs);
+			//$("#load-all-1hr").load("__factory/load-poloniex-1hr.php");
+			//$("#load-all-3hr").load("__factory/load-poloniex-3hr.php");
+			//$("#load-all-24hr").load("__factory/load-poloniex-24hr.php");
 			//$("#trade-history").load("__factory/load-trade-history.php");
 		};
-		window.setInterval(refreshFeeds, 6000);
+		window.setInterval(refreshFeeds, 5000);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>
