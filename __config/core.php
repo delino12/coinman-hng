@@ -108,7 +108,7 @@ class WatchDog extends DBconnect
 				$total_sell = $get_count->load_sell_count($pairs);
 
 				# code...
-				echo '
+				$msg = '
 					<tr>
 						<td>'.$results['type'].'</td>
 						<td>'.$results['rate'].'</td>
@@ -120,7 +120,7 @@ class WatchDog extends DBconnect
 						<td>'.$total_sell.'</td>
 					</tr>
 				';
-				//return $msg;
+				return $msg;
 			}
 		}
 	}
@@ -169,22 +169,12 @@ class WatchDog extends DBconnect
 	}
 
 	public function refreshData(){
-		$get_expire_time = " SELECT * FROM watchdog ";
-		$get_expire_time_query = mysqli_query($this->plug, $get_expire_time);
-		if(!$get_expire_time_query){
-			echo 'Error running get_expire_time_query '.mysqli_error($this->plug);
-		}else{
-			while($results = mysqli_fetch_array($get_expire_time_query)){
-				
-				$time_expire = $results['expire'];
-
-				$resetData = " DELETE FROM watchdog WHERE (timer > '".$time_expire."') ";
-				$resetData_query = mysqli_query($this->plug, $resetData);
-				if(!$resetData_query){
-					echo 'Fail to run resetData_query '.mysqli_error($this->plug);
-				}
-			}
+		$resetData = " DELETE FROM watchdog ";
+		$resetData_query = mysqli_query($this->plug, $resetData);
+		if(!$resetData_query){
+			echo 'Fail to run resetData_query '.mysqli_error($this->plug);
 		}
+			
 	}
 }
 ?>

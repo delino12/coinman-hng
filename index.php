@@ -71,18 +71,13 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">		
-		var refreshFeeds = function (){
-			// load students
-			$("#load-all").load("__factory/load-poloniex.php");
-		};
-		window.setInterval(refreshFeeds, 5000);
-
+	<script type="text/javascript">
+		$("#load-all").load("__factory/load-poloniex.php");
 		var refreshDatabaseTable = function (){
 			// load students
 			$("#refresh_db").load("__factory/reset.php");
 		};
-		window.setInterval(refreshFeeds, 9000);
+		window.setInterval(refreshFeeds, 5000);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>

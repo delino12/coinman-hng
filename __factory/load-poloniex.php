@@ -86,6 +86,9 @@ $save_xbc_trade_history = $save_trade->saveUpdates($BTC_XBC, $xbc_coin_rate, $xb
 # load all trades
 $bcn_results = $save_trade->load_trade($BTC_BCN);
 $bela_results = $save_trade->load_trade($BTC_BELA);
+$doge_results = $save_trade->load_trade($BTC_DOGE);
+$dash_results = $save_trade->load_trade($BTC_DASH);
+$dgb_results = $save_trade->load_trade($BTC_DGB);
 
 ?>
 
@@ -111,6 +114,9 @@ $bela_results = $save_trade->load_trade($BTC_BELA);
 					<?php
 						echo $bcn_results;
 						echo $bela_results;
+						echo $doge_results;
+						echo $dash_results;
+						echo $dgb_results;
 					?>
 				</table>
 			</div>
