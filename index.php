@@ -2,15 +2,14 @@
 <html>
 <head>
 	<title>HNG Coinman</title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<!-- Custom Google Web Font -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <script src="js/jquery.js"></script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="js/jquery.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<nav class="navbar-default" role="navigation">
@@ -27,9 +26,9 @@
 
 			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li class="menuItem"><a href="balance/"><i class="fa fa-database"></i> <span id="load-balance"></span> </a></li>
-					<li class="menuItem"><a href="profile/"><i class="fa fa-user"></i> DragonGlass </a></li>
-					<li class="menuItem"><a href="lesson/"><i class="fa fa-download"></i> Trade Tactics</a></li>
+					<li class="menuItem"><a href="javascript:void(0);"><i class="fa fa-user"></i> DragonGlass </a></li>
+					<li class="menuItem"><a href="tactics.php"><i class="fa fa-download"></i> View Strategy </a></li>
+					<li class="menuItem"><a href="all.php"><i class="fa fa-download"></i> Ticker</a></li>
 				</ul>	
 			</div>
 		</div>
@@ -66,18 +65,20 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div id="refresh_db"></div>
-				<div id="trade-history"></div>
+				<div id="trade-history"><img id="loading-wait" src="img/loading.svg" height="50" width="50"></div>
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		$("#load-all").load("__factory/load-poloniex.php");
+		$("#load-all").load("__factory/load-poloniex.php", function (){
+			$("#loading-wait").hide();
+		});
 		var refreshDatabaseTable = function (){
 			// load students
 			$("#refresh_db").load("__factory/reset.php");
 		};
-		window.setInterval(refreshFeeds, 5000);
+		window.setInterval(refreshFeeds, 5000 * 30);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>

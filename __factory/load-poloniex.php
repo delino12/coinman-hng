@@ -82,7 +82,6 @@ $save_xbc_trade_history = $save_trade->saveUpdates($BTC_XBC, $xbc_coin_rate, $xb
 //$save_xem_trade_history = $save_trade->saveUpdates();
 
 
-
 # load all trades
 $bcn_results = $save_trade->load_trade($BTC_BCN);
 $bela_results = $save_trade->load_trade($BTC_BELA);
@@ -117,6 +116,29 @@ $dgb_results = $save_trade->load_trade($BTC_DGB);
 						echo $doge_results;
 						echo $dash_results;
 						echo $dgb_results;
+					?>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel-body">
+				Current Leading Pairs
+				<hr />
+				<table class="table">
+					<tr>
+						<th>Pair </th>
+						<th>Rate </th>
+						<th>Highest Buy</th>
+					</tr>
+
+					<?php
+						echo '
+							<tr>
+								<td>BCN</td>
+								<td></td>
+								<td></td>
+							</tr>
+						';
 					?>
 				</table>
 			</div>
