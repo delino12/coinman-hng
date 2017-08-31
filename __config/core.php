@@ -107,6 +107,12 @@ class WatchDog extends DBconnect
 				$total_buy = $get_count->load_buy_count($pairs);
 				$total_sell = $get_count->load_sell_count($pairs);
 
+				if($total_buy >= $total_sell){
+					$trans = '<i class="fa fa-chevron-up" style="color:green;"></i> up';
+				}else{
+					$trans = '<i class="fa fa-chevron-down" style="color:red;"></i> down';
+				}
+
 				# code...
 				$msg = '
 					<tr>
@@ -114,7 +120,7 @@ class WatchDog extends DBconnect
 						<td>'.$results['rate'].'</td>
 						<td> --- </td>
 						<td> --- </td>
-						<td> --- </td>
+						<td>'.$trans. '</td>
 						<td>'.$results['status'].'</td>
 						<td>'.$total_buy.'</td>
 						<td>'.$total_sell.'</td>
