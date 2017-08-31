@@ -65,6 +65,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+				<div id="refresh_db"></div>
 				<div id="trade-history"></div>
 			</div>
 		</div>
@@ -74,6 +75,12 @@
 		var refreshFeeds = function (){
 			// load students
 			$("#load-all").load("__factory/load-poloniex.php");
+		};
+		window.setInterval(refreshFeeds, 5000);
+
+		var refreshDatabaseTable = function (){
+			// load students
+			$("#refresh_db").load("__factory/reset.php");
 		};
 		window.setInterval(refreshFeeds, 9000);
 	</script>
