@@ -17,7 +17,7 @@ $save_trade = new WatchDog();
 				<hr />
 				<table class="table">
 					<tr>
-						<th>Pair</th>
+						<th>Pointer</th>
 						<th>Value</th>
 					</tr>
 
@@ -33,7 +33,7 @@ $save_trade = new WatchDog();
 				<hr />
 				<table class="table">
 					<tr>
-						<th>Pair</th>
+						<th>Pointer</th>
 						<th>Value</th>
 					</tr>
 
@@ -41,6 +41,36 @@ $save_trade = new WatchDog();
 						$save_trade->highest_sell();
 					?>
 				</table>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel-body">
+				DragonGlass Predicts on Buy Tactics
+				<hr />
+				<ul class="list-group">
+					<li class="list-group-item active">Highest Buy Tactics</li>
+				</ul>
+				<p>
+					From the current updates on the Market Table DragonGlass predicted a value holding
+					<b><?= $save_trade->highest_buy(); ?></b> 
+					is the most buy pair in the crypto-currencies market
+				</p>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel-body">
+				DragonGlass Predicts on Sell Tactics
+				<hr />
+				<ul class="list-group">
+					<li class="list-group-item active">Highest Sell Tactics</li>
+				</ul>
+				<p>
+					From the current updates on the Market Table DragonGlass predicted a value holding
+					<b><?= $save_trade->highest_sell(); ?></b> 
+					is the most sell pair in the crypto-currencies market
+				</p>
 			</div>
 		</div>
 	</div>

@@ -77,7 +77,7 @@
 	</div>
 
 	<script type="text/javascript">
-		// refresh every 1 mins
+		// refresh every 3 mins
 		var refreshMarket = function (){
 			// load students
 			$("#load-all").load("__factory/load-poloniex.php", function (){
@@ -86,14 +86,14 @@
 			});
 			$("#buy-sell").load("__factory/load-most-buy-sell.php");
 		};
-		window.setInterval(refreshMarket, 60000);
+		window.setInterval(refreshMarket, 60000 * 2);
 		
-		// refresh every 1 mins
+		// refresh every 3 mins
 		var refreshDatabaseTable = function (){
 			// load students
-			$("#refresh_db").load("__factory/reset.php");
+			$("#refresh_db").load("__factory/refresh_db.php");
 		};
-		window.setInterval(refreshFeeds, 60000);
+		window.setInterval(refreshFeeds, 60000 * 4);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>

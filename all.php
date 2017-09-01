@@ -26,9 +26,9 @@
 
 			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li class="menuItem"><a href="balance/"><i class="fa fa-database"></i> <span id="load-balance"></span> </a></li>
-					<li class="menuItem"><a href="profile/"><i class="fa fa-user"></i> DragonGlass </a></li>
-					<li class="menuItem"><a href="lesson/"><i class="fa fa-download"></i> Trade Tactics</a></li>
+					<li class="menuItem"><a href="index.php"><i class="fa fa-database"></i> Home </a></li>
+					<li class="menuItem"><a href=""><i class="fa fa-user"></i> DragonGlass </a></li>
+					<li class="menuItem"><a href="all"><i class="fa fa-download"></i> Trade Tactics</a></li>
 				</ul>	
 			</div>
 		</div>

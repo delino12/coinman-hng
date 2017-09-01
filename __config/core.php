@@ -142,42 +142,66 @@ class WatchDog extends DBconnect
 
 	public function highest_buy(){
 		# get highest buying coin
-		$get_highest = " SELECT pair, MAX(buy_value) FROM compare ";
+		$get_highest = " SELECT MAX(buy_value) FROM compare ";
 		$get_highest_query = mysqli_query($this->plug, $get_highest);
 		if(!$get_highest_query){
 			echo 'Error running get_highest_query '.mysqli_error($this->plug);
 		}else{
 			while($results = mysqli_fetch_array($get_highest_query)){
-				$pair_name = $results['pair'];
+				# calculate an return highest column value
 				$pair_value = $results['MAX(buy_value)'];
 
-				echo '
-					<tr>
-						<td><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></td>
-						<td>'.$pair_value.'</td>
-					</tr>
-				';
+				# get pair name 
+				$get_highest_compair = " SELECT * FROM compare WHERE(buy_value = '".$pair_value."') ";
+				$get_highest_compair_query = mysqli_query($this->plug, $get_highest_compair);
+				if(!$get_highest_compair_query){
+					echo 'Error running the get_highest_compair_query '.mysqli_error($this->plug);
+				}else{
+					if ($results = mysqli_fetch_array($get_highest_compair_query)) {
+						# code...
+						$name = $results['pair'];
+						$value = $results['buy_value']; 
+						echo '
+							<tr>
+								<td>'.$name.'</td>
+								<td>'.$value.'</td>
+							</tr>
+						';
+					}
+				}
 			}
 		}
 	}
 
 	public function highest_sell(){
 		# get highest buying coin
-		$get_highest = " SELECT pair, MAX(sell_value) FROM compare ";
+		$get_highest = " SELECT MAX(sell_value) FROM compare ";
 		$get_highest_query = mysqli_query($this->plug, $get_highest);
 		if(!$get_highest_query){
 			echo 'Error running get_highest_query '.mysqli_error($this->plug);
 		}else{
 			while($results = mysqli_fetch_array($get_highest_query)){
-				$pair_name = $results['pair'];
+				# calculate an return highest column value
 				$pair_value = $results['MAX(sell_value)'];
 
-				echo '
-					<tr>
-						<td><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></td>
-						<td>'.$pair_value.'</td>
-					</tr>
-				';
+				# get pair name 
+				$get_highest_compair = " SELECT * FROM compare WHERE(sell_value = '".$pair_value."') ";
+				$get_highest_compair_query = mysqli_query($this->plug, $get_highest_compair);
+				if(!$get_highest_compair_query){
+					echo 'Error running the get_highest_compair_query '.mysqli_error($this->plug);
+				}else{
+					if ($results = mysqli_fetch_array($get_highest_compair_query)) {
+						# code...
+						$name = $results['pair'];
+						$value = $results['sell_value']; 
+						echo '
+							<tr>
+								<td>'.$name.'</td>
+								<td>'.$value.'</td>
+							</tr>
+						';
+					}
+				}
 			}
 		}
 	}
