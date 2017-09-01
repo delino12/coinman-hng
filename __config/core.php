@@ -72,6 +72,7 @@ class WatchDog extends DBconnect
 		$this->expires = 1800 + time();
 		$this->timer = time();
 
+		# invoke DBconnection
 		parent::__construct();
 		$this->plug = DBconnect::iConnect();
 	}
@@ -106,6 +107,15 @@ class WatchDog extends DBconnect
 				$get_count = new CountTradeRequest();
 				$total_buy = $get_count->load_buy_count($pairs);
 				$total_sell = $get_count->load_sell_count($pairs);
+				$time = time();
+
+				# save compare 
+				$save_compare = " INSERT INTO compare(pair, buy_value, sell_value, time) ";
+				$save_compare .= " VALUES ('".$pairs."', '".$total_buy."', '".$total_sell."', '".$time."') ";
+				$save_compare_query = mysqli_query($this->plug, $save_compare);
+				if(!$save_compare_query){
+					echo 'Error running save_compare_query '.mysqli_error($this->plug);
+				}
 
 				if($total_buy >= $total_sell){
 					$trans = '<i class="fa fa-chevron-up" style="color:green;"></i> up';
@@ -121,12 +131,53 @@ class WatchDog extends DBconnect
 						<td> --- </td>
 						<td> --- </td>
 						<td>'.$trans. '</td>
-						<td>'.$results['status'].'</td>
 						<td>'.$total_buy.'</td>
 						<td>'.$total_sell.'</td>
 					</tr>
 				';
 				return $msg;
+			}
+		}
+	}
+
+	public function highest_buy(){
+		# get highest buying coin
+		$get_highest = " SELECT pair, MAX(buy_value) FROM compare ";
+		$get_highest_query = mysqli_query($this->plug, $get_highest);
+		if(!$get_highest_query){
+			echo 'Error running get_highest_query '.mysqli_error($this->plug);
+		}else{
+			while($results = mysqli_fetch_array($get_highest_query)){
+				$pair_name = $results['pair'];
+				$pair_value = $results['MAX(buy_value)'];
+
+				echo '
+					<tr>
+						<td><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></td>
+						<td>'.$pair_value.'</td>
+					</tr>
+				';
+			}
+		}
+	}
+
+	public function highest_sell(){
+		# get highest buying coin
+		$get_highest = " SELECT pair, MAX(sell_value) FROM compare ";
+		$get_highest_query = mysqli_query($this->plug, $get_highest);
+		if(!$get_highest_query){
+			echo 'Error running get_highest_query '.mysqli_error($this->plug);
+		}else{
+			while($results = mysqli_fetch_array($get_highest_query)){
+				$pair_name = $results['pair'];
+				$pair_value = $results['MAX(sell_value)'];
+
+				echo '
+					<tr>
+						<td><i class="fa fa-arrow-up fa-3x" aria-hidden="true"></i></td>
+						<td>'.$pair_value.'</td>
+					</tr>
+				';
 			}
 		}
 	}
@@ -177,10 +228,19 @@ class WatchDog extends DBconnect
 	public function refreshData(){
 		$resetData = " DELETE FROM watchdog ";
 		$resetData_query = mysqli_query($this->plug, $resetData);
+
+		$resetCompare = " DELETE FROM compare ";
+		$resetCompare_query = mysqli_query($this->plug, $resetCompare);
+
+		if(!$resetCompare_query){
+			echo 'Fail to run resetCompare_query '.mysqli_error($this->plug);
+		}
+
 		if(!$resetData_query){
 			echo 'Fail to run resetData_query '.mysqli_error($this->plug);
 		}
-			
+
+		mysqli_close($this->plug);		
 	}
 }
 ?>

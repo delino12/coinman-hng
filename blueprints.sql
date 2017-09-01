@@ -9,6 +9,14 @@ create table watchdog(
     expire varchar(255) not null
 );
 
+create table compare(
+	id int(11) auto_increment key,
+    pair varchar(255) not null,
+    buy_value int(255) not null,
+    sell_value int(255) not null, 
+    time varchar(255) not null
+);
+
 # return order book API data
 create table orderbook(
 	id int(11) auto_increment key,

@@ -37,6 +37,9 @@
 	<div class="container">
 		<h2>HGN CoinMan Trade Strategy predict</h2>
 		<p>This strategy show transaction gap between each crypto-currencies, buy transaction rate, the sell transaction rate and trade activity details. </p>
+		<hr />
+
+		<div id="buy-sell"></div>
 
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#home">Current Updates </a></li>
@@ -65,20 +68,32 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div id="refresh_db"></div>
-				<div id="trade-history"><img id="loading-wait" src="img/loading.svg" height="50" width="50"></div>
+				<div id="trade-history">
+					<img id="loading-wait" src="img/loading.svg" height="50" width="50"> 
+					<span id="loading-text">Loading.............</span>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		$("#load-all").load("__factory/load-poloniex.php", function (){
-			$("#loading-wait").hide();
-		});
+		// refresh every 1 mins
+		var refreshMarket = function (){
+			// load students
+			$("#load-all").load("__factory/load-poloniex.php", function (){
+				$("#loading-wait").hide();
+				$("#loading-text").hide();
+			});
+			$("#buy-sell").load("__factory/load-most-buy-sell.php");
+		};
+		window.setInterval(refreshMarket, 60000);
+		
+		// refresh every 1 mins
 		var refreshDatabaseTable = function (){
 			// load students
 			$("#refresh_db").load("__factory/reset.php");
 		};
-		window.setInterval(refreshFeeds, 5000 * 30);
+		window.setInterval(refreshFeeds, 60000);
 	</script>
 	<script src="js/bootstrap.js"></script>
 </body>

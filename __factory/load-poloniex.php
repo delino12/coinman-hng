@@ -105,7 +105,6 @@ $dgb_results = $save_trade->load_trade($BTC_DGB);
 						<th>Rate gap</th>
 						<th>% Change</th>
 						<th>Transaction</th>
-						<th>Status</th>
 						<th>No. Buy</th>
 						<th>No. Sell</th>
 					</tr>
@@ -116,29 +115,6 @@ $dgb_results = $save_trade->load_trade($BTC_DGB);
 						echo $doge_results;
 						echo $dash_results;
 						echo $dgb_results;
-					?>
-				</table>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="panel-body">
-				Current Leading Pairs
-				<hr />
-				<table class="table">
-					<tr>
-						<th>Pair </th>
-						<th>Rate </th>
-						<th>Highest Buy</th>
-					</tr>
-
-					<?php
-						echo '
-							<tr>
-								<td>BCN</td>
-								<td></td>
-								<td></td>
-							</tr>
-						';
 					?>
 				</table>
 			</div>
